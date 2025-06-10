@@ -1,6 +1,9 @@
 from typing import List
 from pydantic import BaseModel
-class Snowball(BaseModel):
+
+
+
+class Debt(BaseModel):
     name: str
     balance: float
     min_payment: float

@@ -10,7 +10,7 @@ class SnowballRequest(BaseModel):
     monthly_payment: float
 
 @router.post("/calculate-snowball")
-def calculate_snowball_route(request: SnowballRequest)
+def calculate_snowball_route(request: SnowballRequest):
     """
     This route accepts a POST request with:
     - debts: a list of debts (name, balance, min_payment, interest_rate)
