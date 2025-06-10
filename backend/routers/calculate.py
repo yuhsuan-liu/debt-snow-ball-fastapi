@@ -1,12 +1,13 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List
-from backend.utils.snowball import calculate_snowball, Snowball
+from backend.utils.snowball import calculate_snowball
+from backend.schemas.debt import DebtSchema
 
 router = APIRouter()
 
 class SnowballRequest(BaseModel):
-    debts: List[Debt]
+    debts: List[DebtSchema]
     monthly_payment: float
 
 @router.post("/calculate-snowball")
