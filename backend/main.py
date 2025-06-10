@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-fomr Fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .models.debt import Debt
 from .routers import calculate
