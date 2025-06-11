@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
-from .models.debt import Debt
-from .routers import calculate
+from backend.database import engine, Base
+from backend.models.debt import Debt
+from backend.routers import calculate
 
 app = FastAPI()
 
@@ -10,10 +10,10 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
-    allow_oringins=["*"],
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_method=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 #Register the calculate router
