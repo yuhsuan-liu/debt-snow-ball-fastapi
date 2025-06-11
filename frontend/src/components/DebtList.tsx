@@ -60,7 +60,7 @@ const DebtList = () => {
         monthly_payment: parseFloat(monthlyPayment),
       });
       
-      const response = await fetch('http://localhost:8000/calculate-snowball', {
+      const response = await fetch('http://localhost:8002/calculate-snowball', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -72,7 +72,11 @@ const DebtList = () => {
       const data = await response.json();
       console.log('Received response:', data);
       
-      setPaymentPlan(data);
+      if (data.plan) {
+        setPaymentPlan(data.plan);
+      } else {
+        console.error('No plan data in response');
+      }
     } catch (error) {
       console.error('Error calculating plan:', error);
     }
