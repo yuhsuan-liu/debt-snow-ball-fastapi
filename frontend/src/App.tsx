@@ -1,23 +1,22 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Container, Box, Typography } from '@mui/material';
-import './App.css'
 import DebtList from './components/DebtList';
 
-
+// Create a theme with hopeful and motivating colors
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4CAF50', 
+      main: '#4CAF50', // Growth-oriented green
       light: '#81C784',
       dark: '#388E3C',
     },
     secondary: {
-      main: '#2196F3', 
+      main: '#2196F3', // Trustworthy blue
       light: '#64B5F6',
       dark: '#1976D2',
     },
     background: {
-      default: '#F5F5F5', 
+      default: '#F5F5F5',
       paper: '#FFFFFF',
     },
   },
@@ -25,7 +24,7 @@ const theme = createTheme({
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     h4: {
       fontWeight: 600,
-      color: '#2E7D32', 
+      color: '#2E7D32',
     },
   },
 });
@@ -49,7 +48,7 @@ function App() {
         </Box>
       </Container>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -4,5 +4,6 @@ export interface Debt {
     balance: number;
     min_payment: number;
     interest_rate: number;
-    created_at?: string;  //Timestamp
+    id?: number;  // Optional because new debts won't have an ID yet
+    created_at?: string;  // Optional timestamp
 }

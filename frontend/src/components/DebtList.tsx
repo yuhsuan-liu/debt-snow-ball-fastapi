@@ -16,8 +16,18 @@ import {
 } from '@mui/material';
 import { Debt } from '../types/debt';
 
-export default function DebtList() {
-  // State management for debts and form
+// Add PaymentPlan type
+interface PaymentPlan {
+  month: number;
+  payments: Array<{
+    name: string;
+    payment: number;
+    remaining_balance: number;
+  }>;
+}
+
+const DebtList = () => {
+  // State for managing debts and form inputs
   const [debts, setDebts] = useState<Debt[]>([]);
   const [monthlyPayment, setMonthlyPayment] = useState<string>('');
   const [newDebt, setNewDebt] = useState({
@@ -26,24 +36,30 @@ export default function DebtList() {
     min_payment: '',
     interest_rate: '',
   });
-  const [plan, setPlan] = useState<any>(null);
+  const [paymentPlan, setPaymentPlan] = useState<PaymentPlan[]>([]);
 
-  // Handle form submission for new debt
+  // Handle adding a new debt
   const handleAddDebt = (e: React.FormEvent) => {
     e.preventDefault();
-    const debt = {
-      ...newDebt,
+    const debt: Debt = {
+      name: newDebt.name,
       balance: parseFloat(newDebt.balance),
       min_payment: parseFloat(newDebt.min_payment),
       interest_rate: parseFloat(newDebt.interest_rate),
     };
     setDebts([...debts, debt]);
+    // Reset form
     setNewDebt({ name: '', balance: '', min_payment: '', interest_rate: '' });
   };
 
-  // Calculate snowball plan
+  // Update calculatePlan to save the results
   const calculatePlan = async () => {
     try {
+      console.log('Sending request with:', {
+        debts,
+        monthly_payment: parseFloat(monthlyPayment),
+      });
+      
       const response = await fetch('http://localhost:8000/calculate-snowball', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -52,8 +68,11 @@ export default function DebtList() {
           monthly_payment: parseFloat(monthlyPayment),
         }),
       });
+      
       const data = await response.json();
-      setPlan(data);
+      console.log('Received response:', data);
+      
+      setPaymentPlan(data);
     } catch (error) {
       console.error('Error calculating plan:', error);
     }
@@ -61,11 +80,6 @@ export default function DebtList() {
 
   return (
     <Box sx={{ width: '100%', gap: 3, display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <Typography variant="h4" align="center" gutterBottom>
-        Debt Snowball Calculator
-      </Typography>
-
       {/* Add new debt form */}
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h6" gutterBottom>
@@ -111,7 +125,7 @@ export default function DebtList() {
         </form>
       </Paper>
 
-      {/* Debts list */}
+      {/* Display debts list */}
       {debts.length > 0 && (
         <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" gutterBottom>
@@ -131,8 +145,8 @@ export default function DebtList() {
                 {debts.map((debt, index) => (
                   <TableRow key={index}>
                     <TableCell>{debt.name}</TableCell>
-                    <TableCell align="right">${debt.balance}</TableCell>
-                    <TableCell align="right">${debt.min_payment}</TableCell>
+                    <TableCell align="right">${debt.balance.toFixed(2)}</TableCell>
+                    <TableCell align="right">${debt.min_payment.toFixed(2)}</TableCell>
                     <TableCell align="right">{debt.interest_rate}%</TableCell>
                   </TableRow>
                 ))}
@@ -162,15 +176,54 @@ export default function DebtList() {
         </Paper>
       )}
 
-      {/* Results section */}
-      {plan && (
+      {/* Payment Plan Results */}
+      {paymentPlan.length > 0 && (
         <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" gutterBottom>
-            Payment Plan
+            Debt Snowball Payment Plan
           </Typography>
-          {/* Add plan display logic here */}
+          {paymentPlan.map((month, index) => (
+            <Box key={index} sx={{ mb: 3 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
+                Month {month.month}
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Debt Name</TableCell>
+                      <TableCell align="right">Payment</TableCell>
+                      <TableCell align="right">Remaining Balance</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {month.payments.map((payment, pIndex) => (
+                      <TableRow key={pIndex}>
+                        <TableCell>{payment.name}</TableCell>
+                        <TableCell align="right">
+                          ${payment.payment.toFixed(2)}
+                        </TableCell>
+                        <TableCell align="right">
+                          ${payment.remaining_balance.toFixed(2)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          ))}
+
+          {/* Summary Statistics */}
+          <Box sx={{ mt: 2, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
+            <Typography variant="subtitle2" color="primary">
+              Total Months to Debt Freedom: {paymentPlan.length}
+            </Typography>
+          </Box>
         </Paper>
       )}
     </Box>
   );
-}
+};
+
+export default DebtList;
