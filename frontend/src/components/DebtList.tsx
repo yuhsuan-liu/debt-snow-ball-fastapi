@@ -15,6 +15,7 @@ import {
   Alert,
 } from '@mui/material';
 import { Debt } from '../types/debt';
+import { userApi } from '../services/api';
 
 // Add PaymentPlan type
 interface PaymentPlan {
@@ -37,6 +38,8 @@ const DebtList = () => {
     interest_rate: '',
   });
   const [paymentPlan, setPaymentPlan] = useState<PaymentPlan[]>([]);
+  const [username, setUsername] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   // Handle adding a new debt
   const handleAddDebt = (e: React.FormEvent) => {
@@ -82,8 +85,74 @@ const DebtList = () => {
     }
   };
 
+  const handleSaveDebts = async () => {
+    if (!username) {
+      setError('Please enter a username to save your debts');
+      return;
+    }
+    try {
+      // First ensure user exists
+      await userApi.createUser(username);
+      // Then save debts
+      await userApi.saveDebts(username, debts);
+      setError('');
+    } catch (err) {
+      setError('Failed to save debts. ' + (err instanceof Error ? err.message : String(err)));
+    }
+  };
+
+  const handleLoadDebts = async () => {
+    if (!username) {
+      setError('Please enter a username to load your debts');
+      return;
+    }
+    try {
+      const loadedDebts = await userApi.loadDebts(username);
+      setDebts(loadedDebts);
+      setError('');
+    } catch (err) {
+      setError('Failed to load debts. ' + (err instanceof Error ? err.message : String(err)));
+    }
+  };
+
   return (
     <Box sx={{ width: '100%', gap: 3, display: 'flex', flexDirection: 'column' }}>
+      {/* User Controls */}
+      <Paper elevation={3} sx={{ p: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          Save/Load Debts
+        </Typography>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <TextField
+            label="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            sx={{ flexGrow: 1 }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSaveDebts}
+            disabled={!username || debts.length === 0}
+          >
+            Save Debts
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleLoadDebts}
+            disabled={!username}
+          >
+            Load Debts
+          </Button>
+        </Stack>
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
+      </Paper>
+
       {/* Add new debt form */}
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h6" gutterBottom>
