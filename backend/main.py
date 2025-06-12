@@ -1,12 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from backend.database import engine, Base
+from backend.database import engine, Base, get_db
 from backend.models.debt import Debt
-from backend.routers import calculate
+from backend.routers import calculate, user
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 
-#Create CORS middleware to allow requests from the frontend
+# Create tables
+Base.metadata.create_all(bind=engine)
+
+# Create CORS middleware to allow requests from the frontend
 Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
@@ -16,8 +20,9 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-#Register the calculate router
+# Register the routers
 app.include_router(calculate.router)
+app.include_router(user.router, tags=["users"])
 
 @app.get("/")
 def read_root():
