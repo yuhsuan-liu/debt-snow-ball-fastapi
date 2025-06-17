@@ -10,5 +10,6 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     
-    # Relationship with debts
+    # Relationships
     debts = relationship("Debt", back_populates="user")
+    payment_plans = relationship("paymentPlan", back_populates="user")
