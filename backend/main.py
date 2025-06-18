@@ -7,6 +7,13 @@ from sqlalchemy.orm import Session
 
 app = FastAPI()
 
+# Allow CORS for the frontend application
+origin = [
+    "http://localhost:5173",
+    #Insert github page URL here once deployed 
+]
+
+
 # Create tables
 Base.metadata.create_all(bind=engine)
 
