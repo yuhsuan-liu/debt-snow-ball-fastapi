@@ -15,7 +15,7 @@ def create_payment_plan(db: Session, plan: PaymentPlanCreate, user_id: int) -> P
     db.refresh(db_plan)
     return db_plan
 
-def get_payment_plan(db: Session, plan_id int) -> Optional[PaymentPlan]:
+def get_payment_plan(db: Session, plan_id: int) -> Optional[PaymentPlan]:
     return (
         db.query(PaymentPlan)
             .filter(PaymentPlan.id == plan_id)
@@ -24,17 +24,19 @@ def get_payment_plan(db: Session, plan_id int) -> Optional[PaymentPlan]:
 
 def get_user_payment_plan(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[PaymentPlan]:
     """Get all payment plans for a specific user"""
-    return db.query(PaymentPlan)\
-        .filter(PaymentPlan.user_id == user_id)\
+    return (
+        db.query(PaymentPlan)
+        .filter(PaymentPlan.user_id == user_id)
         # Filters plans to only those belonging to the specified user
-        .order_by(PaymentPlan.created_at.desc())\
+        .order_by(PaymentPlan.created_at.desc())
         # Orders results by creation date, newest first
-        .offset(skip)\
+        .offset(skip)
         # Skips the first 'skip' results (for pagination)
-        .limit(limit)\
+        .limit(limit)
         # Limits the number of results (for pagination)
         .all()
         # Returns all matching results as a list
+    )
 
 def update_payment_plan(
     db: Session, 
