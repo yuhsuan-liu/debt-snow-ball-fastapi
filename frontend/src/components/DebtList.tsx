@@ -63,7 +63,7 @@ const DebtList = () => {
         monthly_payment: parseFloat(monthlyPayment),
       });
       
-      const response = await fetch('http://localhost:8002/calculate-snowball', {
+      const response = await fetch('http://localhost:8000/calculate-snowball', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -116,7 +116,12 @@ const DebtList = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', gap: 3, display: 'flex', flexDirection: 'column' }}>
+    <Stack
+      direction={{ xs: "column", md: "row" }}
+      spacing={3}
+      alignItems="flex-start"
+    >
+      <Box sx={{ flex: 1 }}>
       {/* User Controls */}
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h6" gutterBottom>
@@ -248,13 +253,22 @@ const DebtList = () => {
           </Box>
         </Paper>
       )}
-
+      </Box>
       {/* Payment Plan Results */}
       {paymentPlan.length > 0 && (
-        <Paper elevation={3} sx={{ p: 3 }}>
+        <Box sx={{ width: { xs: '100%', md: '40%' } }}>
+          <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" gutterBottom>
             Debt Snowball Payment Plan
           </Typography>
+          
+          {/* Summary Statistics */}
+          <Box sx={{ mt: 2, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
+            <Typography variant="subtitle2" color="primary">
+              Total Months to Debt Freedom: {paymentPlan.length}
+            </Typography>
+          </Box>
+          {/* Monthly Breakdown */}
           {paymentPlan.map((month, index) => (
             <Box key={index} sx={{ mb: 3 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
@@ -287,15 +301,11 @@ const DebtList = () => {
             </Box>
           ))}
 
-          {/* Summary Statistics */}
-          <Box sx={{ mt: 2, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-            <Typography variant="subtitle2" color="primary">
-              Total Months to Debt Freedom: {paymentPlan.length}
-            </Typography>
-          </Box>
-        </Paper>
+
+          </Paper>
+        </Box>
       )}
-    </Box>
+    </Stack>
   );
 };
 
