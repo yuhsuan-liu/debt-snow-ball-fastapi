@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from backend.database import get_db
 from backend.crud import payment_plan as payment_plan_crud
-from backend.schemas.payment_plan import PaymentPlan, PaymentPlanCreate
+from ..schemas.payment_plan import PaymentPlan, PaymentPlanCreate
 
 router = APIRouter()
 

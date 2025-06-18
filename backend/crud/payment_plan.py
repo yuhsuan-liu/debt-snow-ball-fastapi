@@ -1,28 +1,28 @@
 from sqlalchemy.orm import Session
 from backend.models.payment_plan import PaymentPlan
-from backend.schemas.payment_plan import PaymentPlantCreate
+from backend.schemas.payment_plan import PaymentPlanCreate
 from typing import List, Optional
 
 def create_payment_plan(db: Session, plan: PaymentPlanCreate, user_id: int) -> PaymentPlan:
     db_plan = PaymentPlan(
-        monthly_paument=plan.monthly_payment,
+        monthly_payment=plan.monthly_payment,
         total_months=plan.total_months,
         plan_data=plan.plan_data,
-        user_is=user_id
+        user_id=user_id
     )
     db.add(db_plan)
     db.commit()
     db.refresh(db_plan)
     return db_plan
 
-def get_payment_plans(db: Session, plan_idL int) -> Optional[PaymentPlan]:
+def get_payment_plan(db: Session, plan_id int) -> Optional[PaymentPlan]:
     return (
         db.query(PaymentPlan)
             .filter(PaymentPlan.id == plan_id)
             .first()
 )
 
-def get_user_payment_plans(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[PaymentPlan]:
+def get_user_payment_plan(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[PaymentPlan]:
     """Get all payment plans for a specific user"""
     return db.query(PaymentPlan)\
         .filter(PaymentPlan.user_id == user_id)\
