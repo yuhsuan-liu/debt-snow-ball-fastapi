@@ -17,3 +17,9 @@ class DebtSchema(DebtBase):
     created_at: datetime
     
     model_config = ConfigDict(from_attributes=True)
+
+class DebtInput(BaseModel):
+    name: str
+    balance: float
+    min_payment: float
+    interest_rate: float

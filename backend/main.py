@@ -35,3 +35,5 @@ app.include_router(payment_plan.router, tags=["payment-plans"])
 @app.get("/")
 def read_root():
     return {"message": "DebtSnowball backend is live"}
+
+
