@@ -85,21 +85,32 @@ const DebtList = () => {
     }
   };
 
+  // Handle saving debts and payment plan
   const handleSaveDebts = async () => {
-    if (!username) {
-      setError('Please enter a username to save your debts');
-      return;
-    }
+    if (!username || debts.length === 0 || paymentPlan.length === 0) return;
+
     try {
-      // First ensure user exists
-      await userApi.createUser(username);
-      // Then save debts
-      await userApi.saveDebts(username, debts);
-      setError('');
+      await userApi.createUser(username);            // Still ensures user exists
+      await userApi.saveDebts(username, debts);      // Save debts first
+
+      const totalMonths = paymentPlan.length;
+      const planData = Object.fromEntries(
+        paymentPlan.map((p, i) => [i, p])            // Index-based object structure
+      );
+
+      const payload = {
+        monthly_payment: parseFloat(monthlyPayment),
+        total_months: totalMonths,
+        plan_data: planData,
+      };
+
+      await userApi.savePlan(username, payload);     // Save the full plan too
+      setError("");
     } catch (err) {
-      setError('Failed to save debts. ' + (err instanceof Error ? err.message : String(err)));
+      setError("Failed to save debts or plan: " + (err instanceof Error ? err.message : String(err)));
     }
   };
+
 
   const handleLoadDebts = async () => {
     if (!username) {
