@@ -11,7 +11,7 @@ class SnowballRequest(BaseModel):
     monthly_payment: float
 
 @router.post("/calculate-snowball")
-async def calculate_snowball(data:SnowballRequest):
+
 def calculate_snowball_route(request: SnowballRequest):
     """
     This route accepts a POST request with:

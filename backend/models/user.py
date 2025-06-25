@@ -12,4 +12,4 @@ class User(Base):
     
     # Relationships
     debts = relationship("Debt", back_populates="user")
-    payment_plans = relationship("paymentPlan", back_populates="user")
+    payment_plans = relationship("PaymentPlan", back_populates="user")
