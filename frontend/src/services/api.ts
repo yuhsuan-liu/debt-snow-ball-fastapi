@@ -2,6 +2,7 @@ import { Debt } from '../types/debt';
 
 const API_BASE_URL = 'http://localhost:8000';
 
+// API calls for user management and debt operations
 export const userApi = {
     async createUser(username: string) {
         const response = await fetch(`${API_BASE_URL}/users/`, {
@@ -38,4 +39,21 @@ export const userApi = {
         }
         return response.json();
     },
+};
+
+// API call to save the snowball payment plan
+export const savePlan = async (username: string, plan: any) => {
+  const res = await fetch(`http://localhost:8000/users/${username}/payment-plans/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(plan),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to save payment plan for ${username}`);
+  }
+
+  return res.json();
 };
