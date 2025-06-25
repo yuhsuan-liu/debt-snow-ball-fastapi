@@ -108,7 +108,16 @@ const DebtList = () => {
     }
     try {
       const loadedDebts = await userApi.loadDebts(username);
-      setDebts(loadedDebts);
+
+      // Convert stringified values to numbers
+      const parsedDebts = loadedDebts.map((debt) => ({
+        ...debt,
+        balance: parseFloat(debt.balance),
+        min_payment: parseFloat(debt.min_payment),
+        interest_rate: parseFloat(debt.interest_rate),
+      }));
+
+      setDebts(parsedDebts);
       setError('');
     } catch (err) {
       setError('Failed to load debts. ' + (err instanceof Error ? err.message : String(err)));
