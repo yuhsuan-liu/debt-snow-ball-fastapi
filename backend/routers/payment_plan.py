@@ -4,6 +4,8 @@ from typing import List
 from backend.database import get_db
 from backend.crud import payment_plan as payment_plan_crud
 from ..schemas.payment_plan import PaymentPlan, PaymentPlanCreate
+from backend.crud import user as user_crud
+from backend.schemas.user import UserBase
 
 router = APIRouter()
 
@@ -15,6 +17,18 @@ def create_payment_plan(
 ):
     """Create a new payment plan for a user"""
     return payment_plan_crud.create_payment_plan(db=db, plan=plan, user_id=user_id)
+
+@router.post("/users/by-username/{username}/payment-plans/", response_model=PaymentPlan)
+def create_plan_by_username(
+    username: str,
+    plan: PaymentPlanCreate,
+    db: Session = Depends(get_db)
+):
+    user = user_crud.get_user_by_username(db, username=username)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return payment_plan_crud.create_payment_plan(db=db, plan=plan, user_id=user.id)
 
 @router.get("/payment-plans/{plan_id}", response_model=PaymentPlan)
 def get_payment_plan(plan_id: int, db: Session = Depends(get_db)):

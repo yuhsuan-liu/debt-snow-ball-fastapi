@@ -43,8 +43,8 @@ export const userApi = {
         return response.json();
     },
 
-    async savePlan = async (username: string, plan: any) => {
-    const res = await fetch(`http://localhost:8000/users/${username}/payment-plans/`, {
+    async savePlan(username: string, plan: any) {
+    const res = await fetch(`${API_BASE_URL}/users/by-username/${username}/payment-plans/`, {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
