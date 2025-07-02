@@ -90,7 +90,15 @@ const DebtList = () => {
     if (!username || debts.length === 0 || paymentPlan.length === 0) return;
 
     try {
-      await userApi.createUser(username);            // Still ensures user exists
+      // Attempt to create user, but ignore if "already in use"
+      try {
+        await userApi.createUser(username);
+      } catch (err) {
+        if (!String(err).includes("Username already in use")) {
+          throw err; // Re-throw if it's a different error
+        }
+        // else: continue — user exists, which is fine
+      }
       await userApi.saveDebts(username, debts);      // Save debts first
 
       const totalMonths = paymentPlan.length;
