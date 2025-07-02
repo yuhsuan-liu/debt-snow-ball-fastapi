@@ -4,8 +4,8 @@
 Debt Snowball Planner is a full-stack personal finance app that helps users plan and accelerate their debt repayment using the debt snowball method. Users can enter multiple debts, specify their monthly payment budget, and view a step-by-step payoff plan.
 
 The app is built with:
-- **Backend:** Python (FastAPI) — for API endpoints, debt calculations, and future AI integrations.
-- **Frontend:** React — for interactive user experience, with plans to deploy on GitHub Pages.
+- **Backend:** Python (FastAPI) — for API endpoints, debt calculations, and future AI integrations. Deployed on Render
+- **Frontend:** React (TypeScript)— for interactive user experience, deployed on GitHub Pages.
 - **Database:** PostgreSQL — planned for future login, record saving, and data persistence.
 
 ---
@@ -33,9 +33,9 @@ The app is built with:
 
 | Layer      | Technology                |
 |------------|---------------------------|
-| Frontend   | React (Vite), Axios, TailwindCSS |
+| Frontend   | React (TypeScript)        |
 | Backend    | Python, FastAPI, Pydantic |
-| Database   | PostgreSQL (future)       |
+| Database   | PostgreSQL.               |
 | Hosting    | Frontend: GitHub Pages, Backend: Render |
 | AI/LLM Integration | OpenAI API (future) |
 
@@ -44,23 +44,42 @@ The app is built with:
 ## 📐 Project Structure
 
 ```
-DebtSnowball/
-├── frontend/                      # React app (hosted on GitHub Pages)
+snowball_fastapi/
+├── frontend/                      # React app (TypeScript)
 │   ├── src/
-│   │   └── components/           # React components
-│   │       └── SnowballCalculator.jsx
+│   │   ├── components/           # React components
+│   │   │   └── DebtList.tsx
+│   │   ├── services/             # API service layer
+│   │   │   └── api.ts
+│   │   ├── types/                # TypeScript types
+│   │   │   └── debt.ts
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   └── package.json
 │
-├── backend/                       # FastAPI app (hosted on Render)
+├── backend/                      # FastAPI app (Python)
 │   ├── main.py                   # FastAPI entrypoint
 │   ├── database.py               # Database connection
-│   ├── routers/
-│   │   └── calculate.py          # API endpoint for snowball calculation
-│   ├── utils/
-│   │   └── snowball.py          # Debt snowball algorithm
+│   ├── init_db.py                # DB initialization script
+│   ├── routers/                  # API endpoints
+│   │   ├── calculate.py          # Snowball calculation endpoint
+│   │   ├── payment_plan.py
+│   │   └── user.py
+│   ├── crud/                     # CRUD operations
+│   │   ├── payment_plan.py
+│   │   └── user.py
 │   ├── models/                   # Database models
-│   │   └── debt.py
-│   └── schemas/                  # Pydantic schemas
+│   │   ├── debt.py
+│   │   ├── payment_plan.py
+│   │   └── user.py
+│   ├── schemas/                  # Pydantic schemas
+│   │   ├── debt.py
+│   │   ├── payment_plan.py
+│   │   └── user.py
+│   ├── utils/                    # Utility functions
+│   │   └── snowball.py           # Debt snowball algorithm
+│   └── start_server.sh           # Backend start script
+
 ```
 
 
@@ -125,8 +144,8 @@ The app uses the **Debt Snowball Method** to help users pay off debts faster:
 
 ## 🌐 Deployment
 
-- **Frontend**: GitHub Pages (Vite build)
-- **Backend**: Render (auto-deploy from GitHub)
+- **Frontend**: GitHub Pages
+- **Backend**: Render
 
 ## 🤖 AI & LLM Integration (Planned)
 

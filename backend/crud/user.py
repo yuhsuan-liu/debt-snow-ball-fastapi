@@ -19,7 +19,9 @@ def create_user(db: Session, user: UserCreate):
 
 def save_user_debts(db: Session, user_id: int, debts: list[DebtCreate]):
     # Delete existing debts for this user
+    print(f"[DEBUG] Saving {len(debts)} debts for user_id={user_id}")
     db.query(Debt).filter(Debt.user_id == user_id).delete()
+    db.commit()
     
     # Create new debts
     db_debts = []
@@ -33,8 +35,14 @@ def save_user_debts(db: Session, user_id: int, debts: list[DebtCreate]):
         )
         db_debts.append(db_debt)
     
+    #Save to database
     db.add_all(db_debts)
     db.commit()
+
+    #Refresh the debts to make sure getting all the fields
+    for d in db_debts:
+        db.refresh(d)
+
     return db_debts
 
 def get_user_debts(db: Session, user_id: int):

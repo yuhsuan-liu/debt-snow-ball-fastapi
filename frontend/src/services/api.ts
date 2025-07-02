@@ -16,6 +16,7 @@ export const userApi = {
             body: JSON.stringify({ username }),
         });
         if (!response.ok) {
+            const errorData = await response.json(); //Read error response
             throw new Error('Failed to create user');
         }
         return response.json();
