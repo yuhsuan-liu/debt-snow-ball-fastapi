@@ -99,7 +99,10 @@ const DebtList = () => {
         }
         // else: continue — user exists, which is fine
       }
+      
+      console.log("Saving debts...", debts)
       await userApi.saveDebts(username, debts);      // Save debts first
+      console.log("Debts saved successfully");
 
       const totalMonths = paymentPlan.length;
       const planData = Object.fromEntries(
