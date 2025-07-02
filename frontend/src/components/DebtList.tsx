@@ -89,13 +89,16 @@ const DebtList = () => {
   const handleSaveDebts = async () => {
     if (!username || debts.length === 0 || paymentPlan.length === 0) return;
 
-    try {
-      // Attempt to create user, but ignore if "already in use"
+    try{
       try {
+      // Attempt to create user, but ignore if "already in use"
+      
         await userApi.createUser(username);
-      } catch (err) {
-        if (!String(err).includes("Username already in use")) {
-          throw err; // Re-throw if it's a different error
+      } catch (err:any) {
+        if (err instanceof Error && err.message.includes("Username already in use")) {
+        // Ignore it — user already exists
+        } else {
+          throw err;
         }
         // else: continue — user exists, which is fine
       }
