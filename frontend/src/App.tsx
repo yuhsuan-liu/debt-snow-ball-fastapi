@@ -33,18 +33,23 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="md">
-        <Box sx={{ 
-          my: 4,
+      <Container maxWidth="md" disableGutters sx={{ height: '100vh', pt: 0, pb: 0 }}>
+        <Box sx={{
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 4,
+          gap: 0,
+          pt: 0,
+          transform: 'scale(0.95)',
+          transformOrigin: 'top center',
         }}>
-          <Typography variant="h4" component="h1" gutterBottom>
+          <Typography variant="h4" component="h1" gutterBottom={false} sx={{ mt: 0, mb: 2, pt: 0 }}>
             Debt Snowball Calculator
           </Typography>
-          <DebtList />
+          <Box sx={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
+            <DebtList />
+          </Box>
         </Box>
       </Container>
     </ThemeProvider>
