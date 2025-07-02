@@ -152,25 +152,26 @@ const DebtList = () => {
 return (
   <Box sx={{ p: 2 }}>
     {/* Intro Section */}
-    <Box sx={{ p: 3, mb: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-      <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
-        Debt Snowball Planner
+    <Box sx={{ p: 2, mb: 1, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+      <Typography variant="h5" gutterBottom fontWeight="bold" color = "primary">
+        How to use:
       </Typography>
 
       <Typography variant="body1" paragraph>
-        Plan and accelerate your debt payoff using the <strong>debt snowball method</strong>. Enter your debts, set a monthly budget, and generate a custom payoff plan.
+        Plan and accelerate your debt payoff using the <strong>debt snowball method</strong>. <br />
+        Enter your debts, then enter a monthly payment to calculate a payment plan.
       </Typography>
 
-      <Typography variant="body2" paragraph>
-        🔁 <strong>Demo:</strong> Use username <strong>test_1</strong>, click <strong>Load Debts</strong>, then enter a monthly payment to calculate a plan.<br />
-        ✍️ <strong>Try it:</strong> Use a new username, add debts, and click <strong>Save Debts</strong> to test it yourself.
+      <Typography variant="body1" paragraph>
+        -- <strong>Demo:</strong> Use username <strong>test_1</strong>, click <strong>Load Debts</strong> to retrieve demo debt list.<br />
+        -- <strong>Try it:</strong> Use a new username, add debts, and click <strong>Save Debts</strong> to test it yourself.
       </Typography>
 
-      <Typography variant="body2" paragraph sx={{ fontStyle: 'italic', mb: 2 }}>
-        Built with FastAPI (Python) for backend, React + TypeScript for frontend. Deployed on Render and GitHub Pages.
+      <Typography variant="body1" paragraph sx={{ fontStyle: 'italic', mb: 2 }}>
+        Built with React(TypeScript) + Python(FastAPI) + PostgreSQL. Deployed on Render.
       </Typography>
 
-      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={2} sx={{ mb: 1 }}>
         <a href="https://github.com/yuhsuan-liu/debt-snow-ball-fastapi" target="_blank" rel="noopener noreferrer">
           <Button variant="outlined" color="secondary">View GitHub Repo</Button>
         </a>
@@ -180,11 +181,12 @@ return (
         <a href="mailto:yuhsuan.career@gmail.com">
           <Button variant="outlined">Email Me</Button>
         </a>
+        <Typography variant="caption" color="text.secondary">
+        Created by Yuhsuan Liu
+        </Typography>
       </Stack>
 
-      <Typography variant="caption" color="text.secondary">
-        Created by Yuhsuan Liu
-      </Typography>
+
     </Box>
 
     <Stack
@@ -194,8 +196,8 @@ return (
     >
       <Box sx={{ flex: 1 }}>
       {/* User Controls */}
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
+      <Paper elevation={3} sx={{ p: 1.2, height: '70%' }}>
+        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
           Save/Load Debts
         </Typography>
         <Stack spacing={2} direction="row" alignItems="center">
@@ -230,8 +232,8 @@ return (
       </Paper>
 
       {/* Add new debt form */}
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
+      <Paper elevation={3} sx={{ p: 1.2, height: '70%' }}>
+        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
           Add New Debt
         </Typography>
         <form onSubmit={handleAddDebt}>
@@ -276,8 +278,8 @@ return (
 
       {/* Display debts list */}
       {debts.length > 0 && (
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Typography variant="h6" gutterBottom>
+        <Paper elevation={3} sx={{ p: 1.2 }}>
+          <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
             Your Debts
           </Typography>
           <TableContainer>
