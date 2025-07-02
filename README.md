@@ -10,15 +10,15 @@ The app is built with:
 
 ---
 
-## 🚀 Features
+##  Features
 
-✅ **Current Features (MVP)**
+ **Current Features (MVP)**
 - Input multiple debts (name, balance, minimum payment, interest rate).
 - Enter monthly payment budget.
 - Generate a detailed month-by-month debt snowball repayment plan.
 - Display results in JSON (ready for integration into charts/tables).
 
-✅ **Planned Features**
+ **Planned Features**
 - User authentication (Google login) to save records.
 - PostgreSQL database for persistent user data.
 - Email reminders for payments.
@@ -29,7 +29,7 @@ The app is built with:
 
 ---
 
-## 💻 Tech Stack
+##  Tech Stack
 
 | Layer      | Technology                |
 |------------|---------------------------|
@@ -41,7 +41,7 @@ The app is built with:
 
 ---
 
-## 📐 Project Structure
+##  Project Structure
 
 ```
 snowball_fastapi/
@@ -85,7 +85,7 @@ snowball_fastapi/
 
 ---
 
-## 📊 Algorithm Overview
+##  Algorithm Overview
 
 The app uses the **Debt Snowball Method** to help users pay off debts faster:
 - Debts are sorted by balance (lowest to highest).
@@ -101,7 +101,7 @@ The app uses the **Debt Snowball Method** to help users pay off debts faster:
 
 ---
 
-## 🛠️ Installation & Setup
+##  Installation & Setup
 
 ### Backend (FastAPI)
 1. Clone the repository:
@@ -142,17 +142,17 @@ The app uses the **Debt Snowball Method** to help users pay off debts faster:
    npm run dev
    ```
 
-## 🌐 Deployment
+##  Deployment
 
 - **Frontend**: GitHub Pages
 - **Backend**: Render
 
-## 🤖 AI & LLM Integration (Planned)
+##  AI & LLM Integration (Planned)
 
 - Package the debt snowball algorithm as a dedicated API endpoint
 - Expose it via JSON API for LLMs to consume (structured function-calling style)
 - Add an AI chatbot (OpenAI) to provide personalized debt advice
 
-## 📩 Contact
+##  Contact
 
 Questions or suggestions? Open an issue or contact me at yuhsuan.career@gmail.com
