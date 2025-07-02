@@ -149,7 +149,44 @@ const DebtList = () => {
     }
   };
 
-  return (
+return (
+  <Box sx={{ p: 2 }}>
+    {/* Intro Section */}
+    <Box sx={{ p: 3, mb: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+      <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
+        Debt Snowball Planner
+      </Typography>
+
+      <Typography variant="body1" paragraph>
+        Plan and accelerate your debt payoff using the <strong>debt snowball method</strong>. Enter your debts, set a monthly budget, and generate a custom payoff plan.
+      </Typography>
+
+      <Typography variant="body2" paragraph>
+        🔁 <strong>Demo:</strong> Use username <strong>test_1</strong>, click <strong>Load Debts</strong>, then enter a monthly payment to calculate a plan.<br />
+        ✍️ <strong>Try it:</strong> Use a new username, add debts, and click <strong>Save Debts</strong> to test it yourself.
+      </Typography>
+
+      <Typography variant="body2" paragraph sx={{ fontStyle: 'italic', mb: 2 }}>
+        Built with FastAPI (Python) for backend, React + TypeScript for frontend. Deployed on Render and GitHub Pages.
+      </Typography>
+
+      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+        <a href="https://github.com/yuhsuan-liu/debt-snow-ball-fastapi" target="_blank" rel="noopener noreferrer">
+          <Button variant="outlined" color="secondary">View GitHub Repo</Button>
+        </a>
+        <a href="https://www.linkedin.com/in/yuhsuan-liu-yl/" target="_blank" rel="noopener noreferrer">
+          <Button variant="outlined" color="primary">LinkedIn</Button>
+        </a>
+        <a href="mailto:yuhsuan.career@gmail.com">
+          <Button variant="outlined">Email Me</Button>
+        </a>
+      </Stack>
+
+      <Typography variant="caption" color="text.secondary">
+        Created by Yuhsuan Liu
+      </Typography>
+    </Box>
+
     <Stack
       direction={{ xs: "column", md: "row" }}
       spacing={3}
@@ -340,6 +377,7 @@ const DebtList = () => {
         </Box>
       )}
     </Stack>
+  </Box>
   );
 };
 
