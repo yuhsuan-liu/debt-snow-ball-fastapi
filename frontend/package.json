@@ -1,4 +1,5 @@
 {
+  "homepage": "https://yuhsuan-liu.github.io/debt-snow-ball-fastapi/", //gh-pages deployment
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
@@ -7,7 +8,9 @@
     "dev": "vite --open",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build", //gh-pages deployment
+    "deploy": "gh-pages -d dist" //gh-pages deployment
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
