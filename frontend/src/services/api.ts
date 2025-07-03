@@ -1,6 +1,7 @@
 import { Debt } from '../types/debt';
 
-const API_BASE_URL = 'http://localhost:8000';
+
+const API_BASE_URL = 'https://debt-snow-ball-fastapi.onrender.com'; // URL from Render
 
 // API calls for user management and debt operations
 export const userApi = {
