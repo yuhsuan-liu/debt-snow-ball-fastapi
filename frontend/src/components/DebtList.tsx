@@ -135,7 +135,7 @@ const DebtList = () => {
       const loadedDebts = await userApi.loadDebts(username);
 
       // Convert stringified values to numbers
-      const parsedDebts = loadedDebts.map((debt) => ({
+      const parsedDebts = loadedDebts.map((debt: any) => ({
         ...debt,
         balance: parseFloat(debt.balance),
         min_payment: parseFloat(debt.min_payment),
