@@ -44,7 +44,7 @@ function App() {
           transform: 'scale(0.95)',
           transformOrigin: 'top center',
         }}>
-          <Typography variant="h4" component="h1" gutterBottom={false} sx={{ mt: 0, mb: 2, pt: 0 }}>
+          <Typography variant="h4" component="h1" gutterBottom={false} sx={{ mt: 1, mb: 0.42, pt: 0 }}>
             Debt Snowball Calculator
           </Typography>
           <Box sx={{ flex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
