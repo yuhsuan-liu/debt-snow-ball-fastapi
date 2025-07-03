@@ -152,8 +152,8 @@ const DebtList = () => {
 return (
   <Box sx={{ p: 2 }}>
     {/* Intro Section */}
-    <Box sx={{ p: 2, mb: 1, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-      <Typography variant="h5" gutterBottom fontWeight="bold" color = "primary">
+    <Box sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+      <Typography variant="h5" gutterBottom fontWeight="bold" color = "primary" sx={{ mt: 0 }}>
         How to use:
       </Typography>
 
@@ -196,8 +196,8 @@ return (
     >
       <Box sx={{ flex: 1 }}>
       {/* User Controls */}
-      <Paper elevation={3} sx={{ p: 1.2, height: '70%' }}>
-        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
+      <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1 }}>
+        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0 }}>
           Save/Load Debts
         </Typography>
         <Stack spacing={2} direction="row" alignItems="center">
@@ -206,6 +206,7 @@ return (
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             sx={{ flexGrow: 1 }}
+            size="small"
           />
           <Button
             variant="contained"
@@ -232,18 +233,19 @@ return (
       </Paper>
 
       {/* Add new debt form */}
-      <Paper elevation={3} sx={{ p: 1.2, height: '70%' }}>
-        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
+      <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1 }}>
+        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0 }}>
           Add New Debt
         </Typography>
         <form onSubmit={handleAddDebt}>
-          <Stack spacing={2}>
+          <Stack spacing={1}>
             <TextField
               label="Debt Name"
               value={newDebt.name}
               onChange={(e) => setNewDebt({ ...newDebt, name: e.target.value })}
               required
               fullWidth
+              size="small"
             />
             <TextField
               label="Balance"
@@ -252,6 +254,7 @@ return (
               onChange={(e) => setNewDebt({ ...newDebt, balance: e.target.value })}
               required
               fullWidth
+              size="small"
             />
             <TextField
               label="Minimum Payment"
@@ -260,6 +263,7 @@ return (
               onChange={(e) => setNewDebt({ ...newDebt, min_payment: e.target.value })}
               required
               fullWidth
+              size="small"
             />
             <TextField
               label="Interest Rate (%)"
@@ -268,6 +272,7 @@ return (
               onChange={(e) => setNewDebt({ ...newDebt, interest_rate: e.target.value })}
               required
               fullWidth
+              size="small"
             />
             <Button type="submit" variant="contained" color="primary">
               Add Debt
@@ -278,27 +283,27 @@ return (
 
       {/* Display debts list */}
       {debts.length > 0 && (
-        <Paper elevation={3} sx={{ p: 1.2 }}>
-          <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0.5 }}>
+        <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2 }}>
+          <Typography variant="h6" gutterBottom={false} sx={{ mb: 0.5, mt: 0 }}>
             Your Debts
           </Typography>
           <TableContainer>
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell align="right">Balance</TableCell>
-                  <TableCell align="right">Min Payment</TableCell>
-                  <TableCell align="right">Interest Rate</TableCell>
+                  <TableCell sx={{ py: 0.5, px: 1 }}>Name</TableCell>
+                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Balance</TableCell>
+                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Min Payment</TableCell>
+                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Interest Rate</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {debts.map((debt, index) => (
                   <TableRow key={index}>
-                    <TableCell>{debt.name}</TableCell>
-                    <TableCell align="right">${debt.balance.toFixed(2)}</TableCell>
-                    <TableCell align="right">${debt.min_payment.toFixed(2)}</TableCell>
-                    <TableCell align="right">{debt.interest_rate}%</TableCell>
+                    <TableCell sx={{ py: 0.5, px: 1 }}>{debt.name}</TableCell>
+                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>${debt.balance.toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>${debt.min_payment.toFixed(2)}</TableCell>
+                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>{debt.interest_rate}%</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -306,7 +311,7 @@ return (
           </TableContainer>
 
           {/* Monthly payment input and calculate button */}
-          <Box sx={{ mt: 3, display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Box sx={{ mt: 2.1, display: 'flex', gap: 2, alignItems: 'center' }}>
             <TextField
               label="Monthly Payment"
               type="number"
@@ -314,6 +319,7 @@ return (
               onChange={(e) => setMonthlyPayment(e.target.value)}
               required
               sx={{ flexGrow: 1 }}
+              size="small"
             />
             <Button
               variant="contained"
