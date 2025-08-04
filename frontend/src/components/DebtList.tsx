@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import { Debt } from '../types/debt';
 import { userApi } from '../services/api';
+import ChatBot from './ChatBot';
 
 // Add PaymentPlan type
 interface PaymentPlan {
@@ -151,6 +152,7 @@ const DebtList = () => {
 
 return (
   <Box sx={{ p: 2 }}>
+    <ChatBot /> {/* New chatbot component */}
     {/* Intro Section */}
     <Box sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
       <Typography variant="h5" gutterBottom fontWeight="bold" color = "primary" sx={{ mt: 0 }}>
