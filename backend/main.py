@@ -53,7 +53,7 @@ def read_root():
 def chat_with_bot(request: ChatRequest):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4", 
+            model="gpt-4.1", 
             messages=[
                 {"role": "system", "content": "You are a debt advisor who explains the Debt Snowball method clearly and gives actionable steps to reduce debt."}, 
                 {"role": "user", "content": request.message}
