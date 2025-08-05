@@ -63,7 +63,6 @@ const ChatBot = () => {
             ))}
         </Stack>
         </Box>
-      </Stack>
     </Paper>
   );
 };

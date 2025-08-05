@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { Button, TextField, Typography, Stack, Paper } from "@mui/material";
+import { Box, Button, Typography, Stack, Paper } from "@mui/material";
 const predefinedQuestions = [
     { question: "How do I use this app?", type: "static", answer: "Use the demo by typing in 'test_1' and clicking Load Debts. Or create your own user, add debts, set your monthly payment, and hit Calculate."
     },
@@ -18,7 +18,7 @@ const ChatBot = () => {
         }
         else {
             try {
-                const res = await fetch("https://debt-snow-ball-fastapi.onrender.com", {
+                const res = await fetch("https://debt-snow-ball-fastapi.onrender.com/chat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message })
@@ -31,11 +31,13 @@ const ChatBot = () => {
             }
         }
     };
-    return (_jsxs(Paper, { elevation: 3, sx: { p: 2, mb: 2 }, children: [_jsx(Typography, { variant: "h6", sx: { mb: 1 }, children: " Chat with DebtBot" }), _jsx(Stack, { direction: "row", spacing: 1, flexWrap: "wrap", mb: 2, children: predefinedQuestions.map((item, idx) => (_jsx(Button, { variant: "outlined", size: "small", onClick: () => sendMessage(item.question, item.type, item.answer), children: item.question }, idx))) }), _jsxs(Stack, { spacing: 1, children: [chatLog.map((line, idx) => (_jsx(Typography, { variant: "body2", children: line }, idx))), _jsxs(Stack, { direction: "row", spacing: 1, children: [_jsx(TextField, { fullWidth: true, size: "small", value: input, onChange: (e) => setInput(e.target.value), onKeyDown: (e) => {
-                                    if (e.key === "Enter" && input.trim()) {
-                                        sendMessage(input.trim(), "ai");
-                                        setInput("");
-                                    }
-                                }, placeholder: "Ask me anything..." }), _jsx(Button, { onClick: () => { sendMessage(input, "ai"); setInput(""); }, disabled: !input.trim(), children: "Send" })] })] })] }));
+    return (_jsxs(Paper, { elevation: 3, sx: { p: 2, mb: 2 }, children: [_jsx(Typography, { variant: "h6", sx: { mb: 1 }, children: " Chat with DebtBot" }), _jsx(Stack, { direction: "row", spacing: 1, flexWrap: "wrap", mb: 2, children: predefinedQuestions.map((item, idx) => (_jsx(Button, { variant: "outlined", size: "small", onClick: () => sendMessage(item.question, item.type, item.answer), children: item.question }, idx))) }), _jsx(Box, { sx: {
+                    maxHeight: 200, // adjust height as needed
+                    overflowY: "auto",
+                    mb: 1,
+                    border: "1px solid #ccc",
+                    borderRadius: 1,
+                    p: 1,
+                }, children: _jsx(Stack, { spacing: 1, children: chatLog.map((line, idx) => (_jsx(Typography, { variant: "body2", children: line }, idx))) }) })] }));
 };
 export default ChatBot;
