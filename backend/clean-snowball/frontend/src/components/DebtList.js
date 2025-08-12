@@ -35,7 +35,7 @@ const DebtList = () => {
                 debts,
                 monthly_payment: parseFloat(monthlyPayment),
             });
-            const response = await fetch('http://localhost:8000/calculate-snowball', {
+            const response = await fetch('https://debt-snow-ball-fastapi.onrender.com/calculate-snowball', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
