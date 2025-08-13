@@ -1,0 +1,371 @@
+/* DebtList.module.css - Modern component styles */
+
+.container {
+  padding: 0;
+}
+
+/* Intro Section with enhanced glassmorphism and increased spacing */
+.introSection {
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.introSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+}
+
+.introTitle {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--green-600);
+  letter-spacing: -0.025em;
+}
+
+.introText {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.techText {
+  font-style: italic;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.9;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.linkButtons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.linkButtons button {
+  max-width: 200px;
+  border-radius: var(--radius-md);
+}
+
+.createdBy {
+  color: var(--text-muted);
+  align-self: center;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+/* Main Layout with increased spacing */
+.mainLayout {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+}
+
+.leftColumn {
+  flex: 1;
+}
+
+.rightColumn {
+  width: 40%;
+}
+
+/* Card Sections with enhanced glassmorphism and consistent spacing */
+.card {
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--glass-border-strong);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+}
+
+.cardTitle {
+  margin-bottom: var(--spacing-md);
+  margin-top: 0;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: -0.025em;
+}
+
+/* Form Styles with consistent spacing and button constraints */
+.formRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.formStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.formRowResponsive {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+}
+
+.textField {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.textField input {
+  border-radius: var(--radius-md);
+}
+
+.submitButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 120px;
+  max-width: 200px;
+  border-radius: var(--radius-md);
+  color: var(--text-on-green) !important;
+}
+
+.addDebtButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  font-size: 1rem;
+  max-width: 200px;
+  border-radius: var(--radius-md);
+  color: var(--text-on-green) !important;
+}
+
+/* Table Styles with glassmorphism and consistent spacing */
+.tableContainer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  margin-bottom: var(--spacing-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.tableContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  pointer-events: none;
+}
+
+.tableCell {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+}
+
+.tableHeaderCell {
+  background: var(--green-50);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Payment Plan Styles with enhanced glassmorphism and consistent spacing */
+.paymentPlanContainer {
+  padding: var(--spacing-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  max-height: 70vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.paymentPlanContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+}
+
+.paymentPlanTitle {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  font-size: 1.125rem;
+}
+
+.summaryBox {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  background: var(--green-50);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--green-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.summaryBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 217, 36, 0.3), transparent);
+  pointer-events: none;
+}
+
+.summaryText {
+  color: var(--green-700);
+  font-weight: 600;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.monthTitle {
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.monthSection {
+  margin-bottom: var(--spacing-lg);
+}
+
+.paidOffCell {
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+/* Alert Styles */
+.errorAlert {
+  margin-top: 1rem;
+  background-color: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+}
+
+/* Responsive Design with consistent spacing */
+@media (max-width: 768px) {
+  .mainLayout {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .rightColumn {
+    width: 100%;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .formRowResponsive {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .linkButtons {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .textField {
+    min-width: auto;
+  }
+
+  .submitButton,
+  .addDebtButton {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0;
+  }
+
+  .card {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .introSection {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .paymentPlanContainer {
+    padding: var(--spacing-md);
+  }
+
+  .summaryBox {
+    padding: var(--spacing-sm);
+  }
+}

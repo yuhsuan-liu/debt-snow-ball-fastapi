@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography, Stack, Paper } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import styles from './ChatBot.module.css';
 
 const predefinedQuestions = [
     { question: "How do I use this app?", type: "static", answer: "Use the demo by typing in 'test_1' and clicking Load Debts. Or create your own user, add debts, set your monthly payment, and hit Calculate."
@@ -33,38 +34,43 @@ const ChatBot = () => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
-      <Typography variant="h6" sx={{ mb: 1 }}> Chat with DebtBot</Typography>
-      <Stack direction="row" spacing={1} flexWrap="wrap" mb={2}>
+    <div className={styles.container}>
+      <Typography variant="h6" className={styles.title}>
+        🤖 Chat with DebtBot
+      </Typography>
+
+      <div className={styles.buttonContainer}>
         {predefinedQuestions.map((item, idx) => (
           <Button
             key={idx}
             variant="outlined"
             size="small"
             onClick={() => sendMessage(item.question, item.type as any, item.answer)}
+            className={styles.questionButton}
           >
             {item.question}
           </Button>
         ))}
-      </Stack>
-        <Box
-        sx={{
-            maxHeight: 200, // adjust height as needed
-            overflowY: "auto",
-            mb: 1,
-            border: "1px solid #ccc",
-            borderRadius: 1,
-            p: 1,
-        }}
-        >
-        <Stack spacing={1}>
-            {chatLog.map((line, idx) => (
-            <Typography key={idx} variant="body2">{line}</Typography>
-            ))}
-        </Stack>
-        </Box>
-      </Stack>
-    </Paper>
+      </div>
+
+      <div className={styles.chatContainer}>
+        {chatLog.length === 0 ? (
+          <Typography variant="body2" className={styles.emptyMessage}>
+            Click a question above to start chatting! 💬
+          </Typography>
+        ) : (
+          chatLog.map((line, idx) => (
+            <Typography
+              key={idx}
+              variant="body2"
+              className={styles.chatMessage}
+            >
+              {line}
+            </Typography>
+          ))
+        )}
+      </div>
+    </div>
   );
 };
 

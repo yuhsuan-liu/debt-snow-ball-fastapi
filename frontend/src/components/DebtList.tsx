@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import {
-  Box,
-  Paper,
   Typography,
   Table,
   TableBody,
@@ -11,12 +9,12 @@ import {
   TableRow,
   Button,
   TextField,
-  Stack,
   Alert,
 } from '@mui/material';
 import { Debt } from '../types/debt';
 import { userApi } from '../services/api';
 import ChatBot from './ChatBot';
+import styles from './DebtList.module.css';
 
 // Add PaymentPlan type
 interface PaymentPlan {
@@ -151,243 +149,302 @@ const DebtList = () => {
   };
 
 return (
-  <Box sx={{ p: 2 }}>
-    <ChatBot /> {/* New chatbot component */}
+  <div className={styles.container}>
+    <ChatBot />
+
     {/* Intro Section */}
-    <Box sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-      <Typography variant="h5" gutterBottom fontWeight="bold" color = "primary" sx={{ mt: 0 }}>
-        How to use:
+    <div className={styles.introSection}>
+      <Typography
+        variant="h5"
+        gutterBottom
+        className={styles.introTitle}
+      >
+        🚀 How to use:
       </Typography>
 
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" className={styles.introText}>
         Plan and accelerate your debt payoff using the <strong>debt snowball method</strong>. <br />
         Enter your debts, then enter a monthly payment to calculate a payment plan.
       </Typography>
 
-      <Typography variant="body1" paragraph>
-        -- <strong>Demo:</strong> Use username <strong>test_1</strong>, click <strong>Load Debts</strong> to retrieve demo debt list.<br />
-        -- <strong>Try it:</strong> Use a new username, add debts, and click <strong>Save Debts</strong> to test it yourself.
+      <Typography variant="body1" className={styles.introText}>
+        💡 <strong>Demo:</strong> Use username <strong>test_1</strong>, click <strong>Load Debts</strong> to retrieve demo debt list.<br />
+        ✨ <strong>Try it:</strong> Use a new username, add debts, and click <strong>Save Debts</strong> to test it yourself.
       </Typography>
 
-      <Typography variant="body1" paragraph sx={{ fontStyle: 'italic', mb: 2 }}>
+      <Typography variant="body1" className={styles.techText}>
         Built with React(TypeScript) + Python(FastAPI) + PostgreSQL. Deployed on Render.
       </Typography>
 
-      <Stack direction="row" spacing={2} sx={{ mb: 1 }}>
+      <div className={styles.linkButtons}>
         <a href="https://github.com/yuhsuan-liu/debt-snow-ball-fastapi" target="_blank" rel="noopener noreferrer">
-          <Button variant="outlined" color="secondary">View GitHub Repo</Button>
+          <Button variant="outlined" color="secondary" size="small">
+            📚 View GitHub Repo
+          </Button>
         </a>
         <a href="https://www.linkedin.com/in/yuhsuan-liu-yl/" target="_blank" rel="noopener noreferrer">
-          <Button variant="outlined" color="primary">LinkedIn</Button>
+          <Button variant="outlined" color="primary" size="small">
+            💼 LinkedIn
+          </Button>
         </a>
         <a href="mailto:yuhsuan.career@gmail.com">
-          <Button variant="outlined">Email Me</Button>
+          <Button variant="outlined" size="small">
+            📧 Email Me
+          </Button>
         </a>
-        <Typography variant="caption" color="text.secondary">
-        Created by Yuhsuan Liu
+        <Typography variant="caption" className={styles.createdBy}>
+          Created by Yuhsuan Liu
         </Typography>
-      </Stack>
+      </div>
+    </div>
 
-
-    </Box>
-
-    <Stack
-      direction={{ xs: "column", md: "row" }}
-      spacing={3}
-      alignItems="flex-start"
-    >
-      <Box sx={{ flex: 1 }}>
-      {/* User Controls */}
-      <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1 }}>
-        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0 }}>
-          Save/Load Debts
-        </Typography>
-        <Stack spacing={2} direction="row" alignItems="center">
-          <TextField
-            label="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            sx={{ flexGrow: 1 }}
-            size="small"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSaveDebts}
-            disabled={!username || debts.length === 0}
-          >
-            Save Debts
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleLoadDebts}
-            disabled={!username}
-          >
-            Load Debts
-          </Button>
-        </Stack>
-        {error && (
-          <Alert severity="error" sx={{ mt: 2 }}>
-            {error}
-          </Alert>
-        )}
-      </Paper>
-
-      {/* Add new debt form */}
-      <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2, mb: 1 }}>
-        <Typography variant="h6" gutterBottom={false} sx={{ mb: 1, mt: 0 }}>
-          Add New Debt
-        </Typography>
-        <form onSubmit={handleAddDebt}>
-          <Stack spacing={1}>
-            <TextField
-              label="Debt Name"
-              value={newDebt.name}
-              onChange={(e) => setNewDebt({ ...newDebt, name: e.target.value })}
-              required
-              fullWidth
-              size="small"
-            />
-            <TextField
-              label="Balance"
-              type="number"
-              value={newDebt.balance}
-              onChange={(e) => setNewDebt({ ...newDebt, balance: e.target.value })}
-              required
-              fullWidth
-              size="small"
-            />
-            <TextField
-              label="Minimum Payment"
-              type="number"
-              value={newDebt.min_payment}
-              onChange={(e) => setNewDebt({ ...newDebt, min_payment: e.target.value })}
-              required
-              fullWidth
-              size="small"
-            />
-            <TextField
-              label="Interest Rate (%)"
-              type="number"
-              value={newDebt.interest_rate}
-              onChange={(e) => setNewDebt({ ...newDebt, interest_rate: e.target.value })}
-              required
-              fullWidth
-              size="small"
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Add Debt
-            </Button>
-          </Stack>
-        </form>
-      </Paper>
-
-      {/* Display debts list */}
-      {debts.length > 0 && (
-        <Paper elevation={3} sx={{ pt: 1, pr: 2, pb: 2, pl: 2 }}>
-          <Typography variant="h6" gutterBottom={false} sx={{ mb: 0.5, mt: 0 }}>
-            Your Debts
+    <div className={styles.mainLayout}>
+      <div className={styles.leftColumn}>
+        {/* User Controls */}
+        <div className={styles.card}>
+          <Typography variant="h6" className={styles.cardTitle}>
+            💾 Save/Load Debts
           </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ py: 0.5, px: 1 }}>Name</TableCell>
-                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Balance</TableCell>
-                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Min Payment</TableCell>
-                  <TableCell align="right" sx={{ py: 0.5, px: 1 }}>Interest Rate</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {debts.map((debt, index) => (
-                  <TableRow key={index}>
-                    <TableCell sx={{ py: 0.5, px: 1 }}>{debt.name}</TableCell>
-                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>${debt.balance.toFixed(2)}</TableCell>
-                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>${debt.min_payment.toFixed(2)}</TableCell>
-                    <TableCell align="right" sx={{ py: 0.5, px: 1 }}>{debt.interest_rate}%</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          {/* Monthly payment input and calculate button */}
-          <Box sx={{ mt: 2.1, display: 'flex', gap: 2, alignItems: 'center' }}>
+          <div className={styles.formRowResponsive}>
             <TextField
-              label="Monthly Payment"
-              type="number"
-              value={monthlyPayment}
-              onChange={(e) => setMonthlyPayment(e.target.value)}
-              required
-              sx={{ flexGrow: 1 }}
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.textField}
               size="small"
             />
             <Button
               variant="contained"
-              color="secondary"
-              onClick={calculatePlan}
-              disabled={!monthlyPayment}
+              color="primary"
+              onClick={handleSaveDebts}
+              disabled={!username || debts.length === 0}
+              className={styles.submitButton}
             >
-              Calculate Plan
+              💾 Save Debts
             </Button>
-          </Box>
-        </Paper>
-      )}
-      </Box>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleLoadDebts}
+              disabled={!username}
+              className={styles.submitButton}
+            >
+              📥 Load Debts
+            </Button>
+          </div>
+          {error && (
+            <Alert severity="error" className={styles.errorAlert}>
+              {error}
+            </Alert>
+          )}
+        </div>
+
+        {/* Add new debt form */}
+        <div className={styles.card}>
+          <Typography variant="h6" className={styles.cardTitle}>
+            ➕ Add New Debt
+          </Typography>
+          <form onSubmit={handleAddDebt}>
+            <div className={styles.formStack}>
+              <TextField
+                label="Debt Name"
+                value={newDebt.name}
+                onChange={(e) => setNewDebt({ ...newDebt, name: e.target.value })}
+                required
+                fullWidth
+                size="small"
+                placeholder="e.g., Credit Card, Student Loan"
+              />
+              <div className={styles.formRowResponsive}>
+                <TextField
+                  label="Balance"
+                  type="number"
+                  value={newDebt.balance}
+                  onChange={(e) => setNewDebt({ ...newDebt, balance: e.target.value })}
+                  required
+                  fullWidth
+                  size="small"
+                  placeholder="10000"
+                />
+                <TextField
+                  label="Minimum Payment"
+                  type="number"
+                  value={newDebt.min_payment}
+                  onChange={(e) => setNewDebt({ ...newDebt, min_payment: e.target.value })}
+                  required
+                  fullWidth
+                  size="small"
+                  placeholder="200"
+                />
+              </div>
+              <TextField
+                label="Interest Rate (%)"
+                type="number"
+                value={newDebt.interest_rate}
+                onChange={(e) => setNewDebt({ ...newDebt, interest_rate: e.target.value })}
+                required
+                fullWidth
+                size="small"
+                placeholder="18.5"
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={styles.addDebtButton}
+              >
+                ➕ Add Debt
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        {/* Display debts list */}
+        {debts.length > 0 && (
+          <div className={styles.card}>
+            <Typography variant="h6" className={styles.cardTitle}>
+              📊 Your Debts
+            </Typography>
+            <TableContainer className={styles.tableContainer}>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={styles.tableHeaderCell}>
+                      Name
+                    </TableCell>
+                    <TableCell align="right" className={styles.tableHeaderCell}>
+                      Balance
+                    </TableCell>
+                    <TableCell align="right" className={styles.tableHeaderCell}>
+                      Min Payment
+                    </TableCell>
+                    <TableCell align="right" className={styles.tableHeaderCell}>
+                      Interest Rate
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {debts.map((debt, index) => (
+                    <TableRow key={index} className={styles.tableRow}>
+                      <TableCell className={styles.tableCell}>
+                        {debt.name}
+                      </TableCell>
+                      <TableCell align="right" className={styles.tableCell}>
+                        ${debt.balance.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right" className={styles.tableCell}>
+                        ${debt.min_payment.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right" className={styles.tableCell}>
+                        {debt.interest_rate}%
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            {/* Monthly payment input and calculate button */}
+            <div className={styles.formRowResponsive}>
+              <TextField
+                label="Monthly Payment"
+                type="number"
+                value={monthlyPayment}
+                onChange={(e) => setMonthlyPayment(e.target.value)}
+                required
+                className={styles.textField}
+                size="small"
+                placeholder="Enter total monthly payment"
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={calculatePlan}
+                disabled={!monthlyPayment}
+                className={styles.submitButton}
+              >
+                🧮 Calculate Plan
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
       {/* Payment Plan Results */}
       {paymentPlan.length > 0 && (
-        <Box sx={{ width: { xs: '100%', md: '40%' } }}>
-          <Paper elevation={3} sx={{ p: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Debt Snowball Payment Plan
-          </Typography>
-          
-          {/* Summary Statistics */}
-          <Box sx={{ mt: 2, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-            <Typography variant="subtitle2" color="primary">
-              Total Months to Debt Freedom: {paymentPlan.length}
+        <div className={styles.rightColumn}>
+          <div className={styles.paymentPlanContainer}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={styles.paymentPlanTitle}
+            >
+              🎯 Debt Snowball Payment Plan
             </Typography>
-          </Box>
-          {/* Monthly Breakdown */}
-          {paymentPlan.map((month, index) => (
-            <Box key={index} sx={{ mb: 3 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
-                Month {month.month}
+
+            {/* Summary Statistics */}
+            <div className={styles.summaryBox}>
+              <Typography
+                variant="subtitle1"
+                className={styles.summaryText}
+              >
+                🎉 Total Months to Debt Freedom: {paymentPlan.length}
               </Typography>
-              <TableContainer>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Debt Name</TableCell>
-                      <TableCell align="right">Payment</TableCell>
-                      <TableCell align="right">Remaining Balance</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {month.payments.map((payment, pIndex) => (
-                      <TableRow key={pIndex}>
-                        <TableCell>{payment.name}</TableCell>
-                        <TableCell align="right">
-                          ${payment.payment.toFixed(2)}
+            </div>
+
+            {/* Monthly Breakdown */}
+            {paymentPlan.map((month, index) => (
+              <div key={index} className={styles.monthSection}>
+                <Typography
+                  variant="subtitle1"
+                  className={styles.monthTitle}
+                >
+                  📅 Month {month.month}
+                </Typography>
+                <TableContainer className={styles.tableContainer}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell className={styles.tableHeaderCell}>
+                          Debt Name
                         </TableCell>
-                        <TableCell align="right">
-                          ${payment.remaining_balance.toFixed(2)}
+                        <TableCell align="right" className={styles.tableHeaderCell}>
+                          Payment
+                        </TableCell>
+                        <TableCell align="right" className={styles.tableHeaderCell}>
+                          Remaining Balance
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          ))}
-
-
-          </Paper>
-        </Box>
+                    </TableHead>
+                    <TableBody>
+                      {month.payments.map((payment, pIndex) => (
+                        <TableRow key={pIndex} className={styles.tableRow}>
+                          <TableCell className={styles.tableCell}>
+                            {payment.name}
+                          </TableCell>
+                          <TableCell align="right" className={styles.tableCell}>
+                            ${payment.payment.toFixed(2)}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={payment.remaining_balance === 0 ? styles.paidOffCell : styles.tableCell}
+                          >
+                            {payment.remaining_balance === 0
+                              ? '✅ PAID OFF!'
+                              : `$${payment.remaining_balance.toFixed(2)}`
+                            }
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
-    </Stack>
-  </Box>
+    </div>
+  </div>
   );
 };
 
